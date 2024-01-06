@@ -47,13 +47,3 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Push serviceB image to DockerHub
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/service-b
-          tags: 0.0.$GITHUB_RUN_NUMBER, latest
-          dockerfile: serviceB/Dockerfile
-          registry: docker.io
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }} 
