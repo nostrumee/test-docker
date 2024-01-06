@@ -1,10 +1,15 @@
-FROM maven:3.8.5-openjdk-17 AS build
-WORKDIR /
-COPY /src /src
-COPY pom.xml /
-RUN mvn -f /pom.xml clean package
+FROM eclipse-temurin:17 AS builder
+WORKDIR workspace
+ARG JAR_FILE=./target/serviceA-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} serviceA.jar
+RUN java -Djarmode=layertools -jar serviceA.jar extract
 
-FROM openjdk:17-jdk-slim
-COPY --from=build /target/*.jar application.jar
-EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "application.jar"]
+FROM eclipse-temurin:17
+RUN useradd spring
+USER spring
+WORKDIR workspace
+COPY --from=builder workspace/dependencies/ ./
+COPY --from=builder workspace/spring-boot-loader/ ./
+COPY --from=builder workspace/snapshot-dependencies/ ./
+COPY --from=builder workspace/application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
