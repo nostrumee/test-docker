@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17 AS builder
 WORKDIR workspace
-ARG JAR_FILE=./target/serviceA-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=./serviceA/target/serviceA-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} serviceA.jar
 RUN java -Djarmode=layertools -jar serviceA.jar extract
 
