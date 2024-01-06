@@ -40,12 +40,11 @@ jobs:
 
       - name: Push serviceA image to DockerHub
         uses: mr-smithers-excellent/docker-build-push@v5
-        env:
-          JAR_FILE: ./serviceA/target/serviceA-0.0.1-SNAPSHOT.jar
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/service-a
           tags: 0.0.$GITHUB_RUN_NUMBER, latest
-          dockerfile: serviceA/Dockerfile
+          directory: ./serviceA
+          dockerfile: ./serviceA/Dockerfile
           registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
