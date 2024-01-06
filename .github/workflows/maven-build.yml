@@ -46,7 +46,7 @@ jobs:
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/service-a
           tags: 0.0.$GITHUB_RUN_NUMBER, latest
-          dockerfile: serviceA/Dockerfile
+          dockerfile: /serviceA/Dockerfile
           registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
