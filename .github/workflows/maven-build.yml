@@ -27,7 +27,7 @@ jobs:
             maven-
 
       - name: Package microservices
-        run: mvn -f .serviceA/pom.xml clean package
+        run: mvn -f ./serviceA/pom.xml clean package
 
       - name: Login in Docker
         uses: docker/login-action@v2
